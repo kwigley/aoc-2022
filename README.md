@@ -1,6 +1,6 @@
 <img src="./.assets/christmas_ferris.png" width="164">
 
-# 🎄 Advent of Code {year}
+# 🎄 Advent of Code 2022
 
 Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.rust-lang.org/).
 
@@ -157,14 +157,6 @@ cargo clippy
 2. Create an `.adventofcode.session` file in your home directory and paste your session cookie[^1] into it. To get this, press F12 anywhere on the Advent of Code website to open your browser developer tools. Look in your Cookies under the Application or Storage tab, and copy out the `session` cookie value.
 
 Once installed, you can use the [download command](#download-input-for-a-day).
-
-### Check code formatting in CI
-
-Uncomment the `format` job in the `ci.yml` workflow to enable fmt checks in CI.
-
-### Enable clippy lints in CI
-
-Uncomment the `clippy` job in the `ci.yml` workflow to enable clippy checks in CI.
 
 ### Automatically track ⭐️ progress in the readme
 
