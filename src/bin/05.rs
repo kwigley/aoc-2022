@@ -37,7 +37,7 @@ fn parse_input(input: &str) -> ShipCargo {
         .collect::<Vec<_>>();
     let num_of_stacks = ship[0].len();
     let mut stacks = vec![vec![]; num_of_stacks];
-    for crates in ship.split_at(num_of_stacks).0 {
+    for crates in &ship[..num_of_stacks] {
         for (i, c) in crates.iter().enumerate() {
             if let Some(c) = c {
                 stacks[i].push(*c);
