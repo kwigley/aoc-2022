@@ -1,3 +1,7 @@
+use gcollections::ops::*;
+use interval::ops::*;
+use interval::Interval;
+
 pub fn part_one(input: &str) -> Option<u32> {
     Some(
         input
@@ -5,14 +9,14 @@ pub fn part_one(input: &str) -> Option<u32> {
             .map(|l| {
                 let mut ranges = l.split_terminator(',').map(|r| {
                     let mut range = r.split_terminator('-');
-                    (
+                    Interval::new(
                         range.next().unwrap().parse::<u32>().unwrap(),
                         range.next().unwrap().parse::<u32>().unwrap(),
                     )
                 });
-                let left = &ranges.next().unwrap();
-                let right = &ranges.next().unwrap();
-                left.0 <= right.0 && left.1 >= right.1 || right.0 <= left.0 && right.1 >= left.1
+                let first = ranges.next().unwrap();
+                let second = ranges.next().unwrap();
+                first.is_subset(&second) || second.is_subset(&first)
             })
             .filter(|v| *v)
             .count() as u32,
@@ -26,14 +30,14 @@ pub fn part_two(input: &str) -> Option<u32> {
             .map(|l| {
                 let mut ranges = l.split_terminator(',').map(|r| {
                     let mut range = r.split_terminator('-');
-                    (
+                    Interval::new(
                         range.next().unwrap().parse::<u32>().unwrap(),
                         range.next().unwrap().parse::<u32>().unwrap(),
                     )
                 });
-                let left = &ranges.next().unwrap();
-                let right = &ranges.next().unwrap();
-                left.0 <= right.1 && right.0 <= left.1
+                let first = &ranges.next().unwrap();
+                let second = &ranges.next().unwrap();
+                first.overlap(second)
             })
             .filter(|v| *v)
             .count() as u32,

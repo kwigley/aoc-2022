@@ -26,13 +26,13 @@ fn parse_input(input: &str) -> ShipCargo {
                 .chunks(4)
                 .map(|s| {
                     match std::str::from_utf8(s)
-                        .unwrap()
+                        .expect("bad input")
                         .trim()
                         .trim_start_matches('[')
                         .trim_end_matches(']')
                     {
                         "" => None,
-                        c => Some(c.chars().next().unwrap()),
+                        c => Some(c.chars().next().expect("a char")),
                     }
                 })
                 .collect::<Vec<Option<char>>>()
@@ -47,15 +47,32 @@ fn parse_input(input: &str) -> ShipCargo {
             }
         }
     }
-    let re = Regex::new(r"move (\d+) from (\d+) to (\d+)").unwrap();
+    let re = Regex::new(r"move (\d+) from (\d+) to (\d+)").expect("bad regex");
     let moves = moves
         .lines()
         .map(|l| {
-            let caps = re.captures(l).unwrap();
+            let caps = re.captures(l).expect("working regex");
             Move {
-                amount: caps.get(1).unwrap().as_str().parse::<usize>().unwrap(),
-                from: caps.get(2).unwrap().as_str().parse::<usize>().unwrap() - 1,
-                to: caps.get(3).unwrap().as_str().parse::<usize>().unwrap() - 1,
+                amount: caps
+                    .get(1)
+                    .expect("amount exists")
+                    .as_str()
+                    .parse::<usize>()
+                    .expect("amount"),
+                from: caps
+                    .get(2)
+                    .expect("from exists")
+                    .as_str()
+                    .parse::<usize>()
+                    .expect("from")
+                    - 1,
+                to: caps
+                    .get(3)
+                    .expect("to exists")
+                    .as_str()
+                    .parse::<usize>()
+                    .expect("to")
+                    - 1,
             }
         })
         .collect();

@@ -15,7 +15,7 @@ fn solve(window_size: u32, input: &str) -> u32 {
             .windows(window_size as usize)
             .enumerate()
             .find(|(_, w)| {
-                let set: HashSet<u8> = HashSet::from_iter(w.iter().cloned());
+                let set: HashSet<&u8> = HashSet::from_iter(w.iter());
                 set.len() == window_size as usize
             })
             .expect("No solution found")
