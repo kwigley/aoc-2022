@@ -1,19 +1,29 @@
+use std::collections::BinaryHeap;
+
 pub fn part_one(input: &str) -> Option<u32> {
-    let values: Vec<Option<u32>> = input.lines().map(|s| s.parse().ok()).collect();
-    values
+    input
+        .lines()
+        .map(|s| s.parse().ok())
+        .collect::<Vec<Option<u32>>>()
         .split(|v| v.is_none())
         .map(|arr| arr.iter().flatten().sum::<u32>())
         .max()
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let values: Vec<Option<u32>> = input.lines().map(|s| s.parse().ok()).collect();
-    let mut values = values
-        .split(|v| v.is_none())
-        .map(|arr| arr.iter().flatten().sum::<u32>())
-        .collect::<Vec<u32>>();
-    values.sort();
-    Some(values.iter().rev().take(3).sum())
+    Some(
+        input
+            .lines()
+            .map(|s| s.parse().ok())
+            .collect::<Vec<Option<u32>>>()
+            .split(|v| v.is_none())
+            .map(|arr| arr.iter().flatten().sum::<u32>())
+            .collect::<BinaryHeap<u32>>()
+            .iter()
+            .rev()
+            .take(3)
+            .sum(),
+    )
 }
 
 fn main() {
