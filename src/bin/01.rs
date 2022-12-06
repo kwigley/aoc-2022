@@ -20,7 +20,6 @@ pub fn part_two(input: &str) -> Option<u32> {
             .map(|arr| arr.iter().flatten().sum::<u32>())
             .collect::<BinaryHeap<u32>>()
             .iter()
-            .rev()
             .take(3)
             .sum(),
     )
