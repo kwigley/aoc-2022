@@ -1,27 +1,25 @@
 use std::collections::HashSet;
 
 pub fn part_one(input: &str) -> Option<u32> {
-    let mut count = 3;
-    for g in input.as_bytes().windows(4) {
-        count += 1;
-        let set: HashSet<u8> = HashSet::from_iter(g.iter().cloned());
-        if set.len() == 4 {
-            break;
-        }
-    }
-    Some(count)
+    Some(solve(4, input))
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let mut count = 13;
-    for g in input.as_bytes().windows(14) {
-        count += 1;
-        let set: HashSet<u8> = HashSet::from_iter(g.iter().cloned());
-        if set.len() == 14 {
-            break;
-        }
-    }
-    Some(count)
+    Some(solve(14, input))
+}
+
+fn solve(window_size: u32, input: &str) -> u32 {
+    window_size
+        + input
+            .as_bytes()
+            .windows(window_size as usize)
+            .enumerate()
+            .find(|(_, w)| {
+                let set: HashSet<u8> = HashSet::from_iter(w.iter().cloned());
+                set.len() == window_size as usize
+            })
+            .expect("No solution found")
+            .0 as u32
 }
 
 fn main() {

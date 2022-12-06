@@ -15,7 +15,7 @@ struct ShipCargo {
 
 fn parse_input(input: &str) -> ShipCargo {
     let mut split = input.split_terminator("\n\n");
-    let (stacks, moves) = (split.next().unwrap(), split.next().unwrap());
+    let (stacks, moves) = (split.next().expect("bad input"), split.next().expect("bad input"));
     let ship = stacks
         .lines()
         .map(|l| {
