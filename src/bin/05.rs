@@ -69,7 +69,7 @@ pub fn part_one(input: &str) -> Option<String> {
             .drain(..mv.amount)
             .rev()
             .collect::<Vec<_>>();
-        ship.stacks[mv.to].splice(0..0, crates.clone());
+        ship.stacks[mv.to].splice(0..0, crates);
     }
     ship.stacks
         .iter()
@@ -81,7 +81,7 @@ pub fn part_two(input: &str) -> Option<String> {
     let mut ship = parse_input(input);
     for mv in ship.moves {
         let crates = ship.stacks[mv.from].drain(..mv.amount).collect::<Vec<_>>();
-        ship.stacks[mv.to].splice(0..0, crates.clone());
+        ship.stacks[mv.to].splice(0..0, crates);
     }
     ship.stacks
         .iter()
