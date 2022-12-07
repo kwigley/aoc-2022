@@ -13,13 +13,11 @@ fn solve(window_size: u32, input: &str) -> u32 {
         + input
             .as_bytes()
             .windows(window_size as usize)
-            .enumerate()
-            .find(|(_, w)| {
+            .position(|w| {
                 let set: HashSet<&u8> = HashSet::from_iter(w.iter());
                 set.len() == window_size as usize
             })
-            .expect("No solution found")
-            .0 as u32
+            .expect("No solution found") as u32
 }
 
 fn main() {
