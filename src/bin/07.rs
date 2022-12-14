@@ -2,7 +2,7 @@ use itertools::Itertools;
 
 pub fn part_one(input: &str) -> Option<u32> {
     let mut fs: Vec<(&str, u32)> = Vec::new();
-    let mut stack = vec![("/", 0)];
+    let mut stack = vec![];
 
     for line in input.lines() {
         let (first, rest) = line.split_once(' ').unwrap();
@@ -11,7 +11,6 @@ pub fn part_one(input: &str) -> Option<u32> {
                 let mut command = rest.split_terminator(' ');
                 match command.next() {
                     Some("cd") => match command.next() {
-                        Some("/") => continue,
                         Some("..") => fs.push(stack.pop().unwrap()),
                         Some(dir) => stack.push((dir, 0)),
                         _ => panic!("Invalid command"),
@@ -39,7 +38,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 pub fn part_two(input: &str) -> Option<u32> {
     let mut fs: Vec<(&str, u32)> = Vec::new();
-    let mut stack = vec![("/", 0)];
+    let mut stack = vec![];
     let mut total_size = 0;
 
     for line in input.lines() {
@@ -49,7 +48,6 @@ pub fn part_two(input: &str) -> Option<u32> {
                 let mut command = rest.split_terminator(' ');
                 match command.next() {
                     Some("cd") => match command.next() {
-                        Some("/") => continue,
                         Some("..") => fs.push(stack.pop().unwrap()),
                         Some(dir) => stack.push((dir, 0)),
                         _ => panic!("Invalid command"),
